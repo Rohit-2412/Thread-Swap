@@ -1,12 +1,30 @@
 const express = require("express");
-const mongoose = require("mongoose");
-
-const app = express();
+const bodyParser = require("body-parser");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const productRoutes = require("./routes/product.route");
+const userRoutes = require("./routes/user.route");
 
-app.use(express.json());
+// Create an instance of Express
+const app = express();
+
+// Middleware
+app.use(bodyParser.json());
 app.use(cors());
-const PORT = 6000;
+
+// Define routes
+app.get("/", (req, res) => {
+    res.send("Hello, World! This is your Express backend.");
+});
+
+app.use("/api/product", productRoutes);
+app.use("/api/user", userRoutes);
+
+// Start the server
+const PORT = process.env.PORT || 5050; // Use the provided port or default to 5050
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
 
 mongoose
     .connect(
@@ -18,52 +36,3 @@ mongoose
     .catch((error) => {
         console.error("Error connecting to MongoDB:", error);
     });
-
-//********************* User Details Schema *****************/
-const Schema1 = mongoose.Schema;
-const UserSchema = new Schema1({
-    user_name: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 3,
-    },
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        match: [/.+\@.+\..+/, "Please fill a valid email address"],
-    },
-    contact: {
-        type: Number,
-        required: true,
-        trim: true,
-        minlength: 10,
-    },
-    address: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 3,
-    },
-    earning: {
-        type: Number,
-        default: 0,
-    },
-    cart: {
-        type: [String],
-        default: [],
-    },
-    orders: {
-        type: [String],
-        default: [],
-    },
-});
-//************************************************************************************
-app.get("/*", (req, res) => {
-    res.send("You are on the wrong route. Here's the list of possible routes");
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
