@@ -13,15 +13,73 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import adminImage from "../admin.png";
 import arrow from "../arrow.png";
+import axios from "axios"; // Import axios
 import customerImage from "../customer.png";
 import gliterback from "../gliterback.jpg";
 
+const domain = process.env.REACT_APP_BACKEND_DOMAIN;
+
 function Signup() {
+    const [name, setName] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [address, setAddress] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [accountType, setAccountType] = useState("");
+    const emailPattern = /.+\@.+\..+/;
+
     const handleAccountTypeClick = (type) => {
         setAccountType(type);
     };
-    const notify = () => toast.success("Signed In Successfully!");
+
+    const handleSubmit = () => {
+        let data = { name, mobile, address, email, password, isAdmin: false };
+
+        console.log(data);
+        // if accountType is not set, show error message
+        if (!accountType) {
+            toast.error("Please select account type");
+            return;
+        }
+        // if accountType is customer, set isAdmin to false
+        if (accountType === "customer") {
+            data.isAdmin = false;
+        }
+        // if accountType is admin, set isAdmin to true
+        if (accountType === "admin") {
+            data.isAdmin = true;
+        }
+        // if any field is empty, show error message
+        if (!name || !mobile || !address || !email || !password) {
+            toast.error("Please fill all fields");
+            return;
+        }
+        // if mobile number is not 10 digits, show error message
+        if (mobile.length !== 10) {
+            toast.error("Mobile number should be 10 digits");
+            return;
+        }
+        // if password is less than 6 characters, show error message
+        if (password.length < 6) {
+            toast.error("Password should be at least 6 characters");
+            return;
+        }
+        // if email is invalid, show error message
+        if (!emailPattern.test(email)) {
+            toast.error("Please fill a valid email address");
+            return;
+        }
+        // if all fields are valid, send POST request to backend
+        axios
+            .post(`${domain}/api/user/signup`, data)
+            .then((res) => {
+                toast.success(res.data.message);
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error(error.response.data.message);
+            });
+    };
 
     return (
         <>
@@ -250,6 +308,8 @@ function Signup() {
                                 label="Name"
                                 variant="outlined"
                                 sx={{ alignContent: "center", marginTop: 2 }}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                             <TextField
                                 id="outlined-basic"
@@ -257,12 +317,16 @@ function Signup() {
                                 type="number"
                                 variant="outlined"
                                 sx={{ alignContent: "center", marginTop: 2 }}
+                                value={mobile}
+                                onChange={(e) => setMobile(e.target.value)}
                             />
                             <TextField
                                 id="outlined-basic"
                                 label="Address"
                                 variant="outlined"
                                 sx={{ alignContent: "center", marginTop: 2 }}
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
                             />
                             <TextField
                                 id="outlined-basic"
@@ -270,12 +334,16 @@ function Signup() {
                                 type="email"
                                 variant="outlined"
                                 sx={{ alignContent: "center", marginTop: 2 }}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <TextField
                                 id="outlined-basic"
                                 label="Password"
                                 variant="outlined"
                                 sx={{ alignContent: "center", marginTop: 2 }}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                             <Button
                                 sx={{
@@ -290,7 +358,7 @@ function Signup() {
                                     fontSize: "16px",
                                     fontWeight: "bold",
                                 }}
-                                onClick={notify}
+                                onClick={handleSubmit}
                             >
                                 Sign Up
                             </Button>

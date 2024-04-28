@@ -1,7 +1,19 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    user_name: {
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 3,
+    },
+    mobile: {
+        type: Number,
+        required: true,
+        trim: true,
+        minlength: 10,
+    },
+    address: {
         type: String,
         required: true,
         trim: true,
@@ -13,17 +25,15 @@ const userSchema = new mongoose.Schema({
         required: true,
         match: [/.+\@.+\..+/, "Please fill a valid email address"],
     },
-    contact: {
-        type: Number,
-        required: true,
-        trim: true,
-        minlength: 10,
+    isAdmin: {
+        type: Boolean,
+        default: false,
     },
-    address: {
+    password: {
         type: String,
         required: true,
         trim: true,
-        minlength: 3,
+        minlength: 6,
     },
     earning: {
         type: Number,

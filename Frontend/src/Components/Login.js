@@ -14,10 +14,16 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import adminImage from "../admin.png";
 import arrow from "../arrow.png";
+import axios from "axios";
 import customerImage from "../customer.png";
 import gliterback from "../gliterback.jpg";
 
+const domain = process.env.REACT_APP_BACKEND_DOMAIN;
+const emailPattern = /.+\@.+\..+/;
+
 function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [accountType, setAccountType] = useState("");
     const [loggedIn, setLoggedIn] = useState(false); // State to track login status
 
@@ -30,8 +36,28 @@ function Login() {
     };
 
     const handleLogin = () => {
-        // Perform login logic...
-        setLoggedIn(true);
+        const data = { email, password, isAdmin: accountType === "admin" };
+
+        if (!emailPattern.test(email)) {
+            return toast.error("Invalid email");
+        }
+
+        if (!email || !password) {
+            return toast.error("Please fill all fields");
+        }
+        if (accountType === "") {
+            return toast.error("Please select an account type");
+        }
+        axios
+            .post(`${domain}/api/user/signin`, data)
+            .then((response) => {
+                console.log(response);
+                notify();
+                setLoggedIn(true);
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message);
+            });
     };
 
     // If user is logged in, Navigate to home page
@@ -267,12 +293,16 @@ function Login() {
                                 label="Email"
                                 variant="outlined"
                                 sx={{ alignContent: "center", marginTop: 2 }}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <TextField
                                 id="outlined-basic"
                                 label="Password"
                                 variant="outlined"
                                 sx={{ alignContent: "center", marginTop: 2 }}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                             <Button
                                 sx={{
@@ -289,7 +319,6 @@ function Login() {
                                 }}
                                 onClick={() => {
                                     handleLogin();
-                                    notify();
                                 }}
                             >
                                 Login

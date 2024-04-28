@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import axios from "axios"; // Import axios
 import gliterback from "../gliterback.jpg";
 
-const domain = process.env.REACT_APP_DOMAIN;
+const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 
 function SellingForm() {
     const [user_name, setName] = useState("");
