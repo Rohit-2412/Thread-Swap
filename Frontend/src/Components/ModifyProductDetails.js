@@ -20,7 +20,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import SearchIcon from "@mui/icons-material/Search";
 import productavatar from "../assets/useravatar.png";
 
-const domain = process.env.REACT_APP_DOMAIN;
+const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 
 const ModifyProductDetails = () => {
     const [searchQuery, setSearchQuery] = useState("");

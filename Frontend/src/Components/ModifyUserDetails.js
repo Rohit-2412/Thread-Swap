@@ -14,7 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios"; // Import axios
 import useravatar from "../assets/useravatar.png";
 
-const domain = process.env.REACT_APP_DOMAIN;
+const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 
 const ModifyUserDetails = () => {
     const [users, setUsers] = useState([]);

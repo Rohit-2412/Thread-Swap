@@ -6,7 +6,8 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import Footer from "./Footer";
 import axios from "axios";
-const domain = process.env.REACT_APP_DOMAIN;
+
+const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 
 function Item() {
     const { id } = useParams(); // Get the product ID from URL parameters

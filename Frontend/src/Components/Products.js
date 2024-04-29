@@ -22,7 +22,7 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const domain = process.env.REACT_APP_DOMAIN;
+const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 
 const priceMarks = [
     {
