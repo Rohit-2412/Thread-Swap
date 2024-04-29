@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/product.route");
 const userRoutes = require("./routes/user.route");
+const itemRoutes = require("./routes/item.route");
 
 // Create an instance of Express
 const app = express();
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/product", productRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/item", itemRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5050; // Use the provided port or default to 5050
