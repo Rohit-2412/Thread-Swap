@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import Textarea from "@mui/joy/Textarea";
 import Typography from "@mui/material/Typography";
 import axios from "axios"; // Import axios
-import gliterback from "../gliterback.jpg";
+import gliterback from "../assets/gliterback.jpg";
 
 const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 

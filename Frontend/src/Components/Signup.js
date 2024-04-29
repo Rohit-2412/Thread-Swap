@@ -11,11 +11,11 @@ import CardContent from "@mui/material/CardContent";
 import Footer from "./Footer";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import adminImage from "../admin.png";
-import arrow from "../arrow.png";
+import adminImage from "../assets/admin.png";
+import arrow from "../assets/arrow.png";
 import axios from "axios"; // Import axios
-import customerImage from "../customer.png";
-import gliterback from "../gliterback.jpg";
+import customerImage from "../assets/customer.png";
+import gliterback from "../assets/gliterback.jpg";
 
 const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 
