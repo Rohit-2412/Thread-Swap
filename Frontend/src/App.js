@@ -26,11 +26,14 @@ const domain = process.env.REACT_APP_BACKEND_DOMAIN;
 export const AppContext = createContext({
     totalQuantity: 0,
     setTotalQuantity: () => {},
+    items: [],
+    setItems: () => {},
 });
 
 function App() {
     const [message, setMessage] = useState();
     const [totalQuantity, setTotalQuantity] = useState(0); // Total quantity state
+    const [items, setItems] = useState([]); // Items state
 
     //   useEffect(() => {
     //     fetch("http://localhost:8000/message")
@@ -41,8 +44,14 @@ function App() {
     return (
         <BrowserRouter>
             {/* Provide AppContext to all children */}
-            <AppContext.Provider value={{ totalQuantity, setTotalQuantity }}>
-                {/* <p>{message}</p> */}
+            <AppContext.Provider
+                value={{
+                    totalQuantity,
+                    setTotalQuantity,
+                    items,
+                    setItems,
+                }}
+            >
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} index />

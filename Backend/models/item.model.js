@@ -13,6 +13,10 @@ const itemSchema = new mongoose.Schema({
         trim: true,
         minlength: 3,
     },
+    size: {
+        type: String,
+        required: true,
+    },
     price: {
         type: Number,
         required: true,

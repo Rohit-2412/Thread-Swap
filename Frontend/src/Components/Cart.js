@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, Typography } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { AppContext } from "../App";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -8,35 +8,16 @@ import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import empty from "../assets/empty.avif";
 import gliterback from "../assets/gliterback.jpg";
-import trend4 from "../assets/trend4.webp";
-import trend5 from "../assets/trend5.webp";
-import trend6 from "../assets/trend6.webp";
 
 function Cart() {
-    const { totalQuantity, setTotalQuantity } = useContext(AppContext);
+    const { totalQuantity, setTotalQuantity, items, setItems } =
+        useContext(AppContext);
 
-    const [cartItems, setCartItems] = useState([
-        { title: "Couple Rings", image: trend4, price: 100, size: "FreeSize" },
-        { title: "Premium Wallet", image: trend5, price: 150, size: "Medium" },
-        { title: "Combat Boots", image: trend6, price: 300, size: "9" },
-    ]);
-
-    useEffect(() => {
-        const newTotalQuantity = cartItems.length;
-        setTotalQuantity(newTotalQuantity); // Update totalQuantity when cart items change
-        {
-            console.log("Inst", totalQuantity);
-        }
-    }, [cartItems]);
+    const [cartItems, setCartItems] = useState([]);
 
     const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 
-    {
-        console.log("1st", totalQuantity);
-    }
-
     const handleCheckout = () => {
-        // Add logic for checkout
         console.log("Checkout clicked");
     };
 

@@ -100,17 +100,15 @@ function capitalizeEachWord(str) {
     separatedWords = separatedWords.replace(/\b\w/g, (char) =>
         char.toUpperCase()
     );
-    console.log(separatedWords);
     return separatedWords;
 }
 
 function Subcategory() {
-    const { id } = useParams();
-    console.log("id"); // Check if categoryId is correctly retrieved
+    const { id, subcat } = useParams();
+    console.log(id, subcat);
 
     // Get the subcategories for the selected category ID
     const categorySubcategories = subcategories[id];
-    console.log("categorySubcategories:", categorySubcategories); // Log categorySubcategories to inspect
 
     return (
         <>
@@ -125,7 +123,6 @@ function Subcategory() {
                     }}
                 >
                     {/* Map through subcategories of the selected category and render cards */}
-                    {console.log(true)}
                     {categorySubcategories &&
                         categorySubcategories.map((subcategory, index) => (
                             <Card
